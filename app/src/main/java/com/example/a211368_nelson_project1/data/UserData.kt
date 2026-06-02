@@ -10,11 +10,4 @@ data class UserData(
     val className: String = ""
 )
 
-data class ExperimentDetail(
-    val title: String,
-    val description: String,
-    val objective: String,
-    val materials: String,
-    val steps: String
-)
 

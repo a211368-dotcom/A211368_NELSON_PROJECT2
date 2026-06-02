@@ -137,6 +137,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         //profile screen
+                        //profile screen
                         composable(LabScreen.Profile.name) {
                             ProfileScreen(
                                 modifier = Modifier.fillMaxSize(),
@@ -148,9 +149,12 @@ class MainActivity : ComponentActivity() {
 
                                 onLogout = {
                                     navController.navigate(LabScreen.Login.name) {
-                                        popUpTo(0) // buang semua backstack
+                                        popUpTo(0)
                                     }
-                                }
+                                },
+
+                                // ADDED
+                                isLoggedIn = viewModel.userData.name.isNotEmpty()
                             )
                         }
 

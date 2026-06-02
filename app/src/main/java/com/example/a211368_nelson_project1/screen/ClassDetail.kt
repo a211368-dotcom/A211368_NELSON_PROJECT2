@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
@@ -70,7 +69,6 @@ fun ClassDetail(
             .padding(20.dp)
     ) {
 
-        // HEADER
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -102,7 +100,6 @@ fun ClassDetail(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // CLASS CARD (modern elevated style)
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(28.dp),
@@ -144,7 +141,6 @@ fun ClassDetail(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // DESCRIPTION CARD
         SectionTitle("About Class")
 
         Card(
@@ -164,6 +160,7 @@ fun ClassDetail(
         Spacer(modifier = Modifier.height(20.dp))
 
         SectionTitle("Class Activities")
+
         ExpandableCard(
             title = "Assignments",
             items = assignments,
@@ -186,6 +183,16 @@ fun ClassDetail(
             items = materials,
             containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.9f),
             accentColor = MaterialTheme.colorScheme.tertiary
+        )
+
+        ExpandableCard(
+            title = "Chat with Teacher",
+            items = listOf("Message $teacher"),
+            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.9f),
+            accentColor = MaterialTheme.colorScheme.secondary,
+            onClick = {
+                navController.navigate("chat_screen")
+            }
         )
     }
 }
@@ -222,9 +229,6 @@ fun SectionTitle(title: String) {
     )
 }
 
-
-
-
 @Composable
 fun ExpandableCard(
     title: String,
@@ -252,7 +256,6 @@ fun ExpandableCard(
                 .padding(14.dp)
         ) {
 
-            // HEADER
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -260,7 +263,6 @@ fun ExpandableCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-                // accent bar (professional touch)
                 Box(
                     modifier = Modifier
                         .size(width = 6.dp, height = 22.dp)
@@ -287,7 +289,6 @@ fun ExpandableCard(
                 )
             }
 
-            // CONTENT
             AnimatedVisibility(visible = expanded) {
 
                 Column(modifier = Modifier.padding(top = 10.dp)) {
@@ -315,10 +316,8 @@ fun ExpandableCard(
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
-
                     }
 
-                    // BUTTON FOR ASSIGNMENT
                     if (title == "Assignments") {
 
                         Spacer(modifier = Modifier.height(12.dp))
@@ -334,6 +333,27 @@ fun ExpandableCard(
 
                             Text(
                                 text = "Calculate Assignment",
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
+
+                    if (title == "Chat with Teacher") {
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        Button(
+                            onClick = onClick,
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(14.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = accentColor
+                            )
+                        ) {
+
+                            Text(
+                                text = "Open Chat",
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.onPrimary
                             )
