@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project1.data
+package com.example.a211368_nelson_project2.data
 
 data class UserData(
     val name: String = "",

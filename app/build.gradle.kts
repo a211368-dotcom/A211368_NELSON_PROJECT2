@@ -1,14 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
-    namespace = "com.example.a211368_nelson_project1"
+    namespace = "com.example.a211368_nelson_project2"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.a211368_nelson_project1"
+        applicationId = "com.example.a211368_nelson_project2"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -33,6 +35,9 @@ android {
     buildFeatures {
         compose = true
     }
+    kotlinOptions {
+        jvmTarget = "11"
+    }
 }
 
 dependencies {
@@ -55,4 +60,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("io.coil-kt:coil-compose:2.6.0")
-}
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    }

@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project1.screen
+package com.example.a211368_nelson_project2.screen
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,7 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.a211368_nelson_project1.viewmodel.LabViewModel
+import com.example.a211368_nelson_project2.viewmodel.LabViewModel
 
 @Composable
 fun ProfileScreen(
@@ -46,7 +47,7 @@ fun ProfileScreen(
     isLoggedIn: Boolean = false
 ) {
     // ADDED: store selected profile image
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+    var selectedImageUri by rememberSaveable { mutableStateOf<Uri?>(null) }
 
     // ADDED: open image picker
     val imagePickerLauncher = rememberLauncherForActivityResult(
@@ -55,12 +56,12 @@ fun ProfileScreen(
         selectedImageUri = uri
     }
 
-    var email by remember { mutableStateOf("") }
-    var age by remember { mutableStateOf("") }
-    var studentClass by remember { mutableStateOf("") }
+    var email by rememberSaveable() { mutableStateOf("") }
+    var age by rememberSaveable { mutableStateOf("") }
+    var studentClass by rememberSaveable { mutableStateOf("") }
 
     // ADDED: save profile message
-    var showSavedMessage by remember { mutableStateOf(false) }
+    var showSavedMessage by rememberSaveable { mutableStateOf(false) }
 
     Column(
         modifier = modifier

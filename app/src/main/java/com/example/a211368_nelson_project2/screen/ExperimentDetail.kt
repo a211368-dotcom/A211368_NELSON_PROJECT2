@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project1.screen
+package com.example.a211368_nelson_project2.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,8 +23,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.a211368_nelson_project1.viewmodel.LabViewModel
-import com.example.a211368_nelson_project1.R
+import com.example.a211368_nelson_project2.viewmodel.LabViewModel
+import com.example.a211368_nelson_project2.R
 
 // data model
 data class ExperimentDetail(
@@ -101,8 +102,8 @@ fun DetailScreen(
         }
     }
 
-    var observation by remember { mutableStateOf("") }
-    var showResult by remember { mutableStateOf(false) }
+    var observation by rememberSaveable { mutableStateOf("") }
+    var showResult by rememberSaveable { mutableStateOf(false) }
 
     val progress = if (stepsList.isNotEmpty()) {
         checkedSteps.count { it } / stepsList.size.toFloat()

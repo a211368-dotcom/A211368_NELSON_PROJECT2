@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project1.screen
+package com.example.a211368_nelson_project2.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -19,10 +20,11 @@ fun AssignmentScreen(
     onBack: () -> Unit = {}
 ) {
 
-    var mark1 by remember { mutableStateOf("") }
-    var mark2 by remember { mutableStateOf("") }
-    var mark3 by remember { mutableStateOf("") }
-    var result by remember { mutableStateOf("") }
+
+    var mark1 by rememberSaveable { mutableStateOf("") }
+    var mark2 by rememberSaveable { mutableStateOf("") }
+    var mark3 by rememberSaveable { mutableStateOf("") }
+    var result by rememberSaveable { mutableStateOf("") }
 
     val pastelBg = Brush.verticalGradient(
         colors = listOf(
@@ -31,6 +33,11 @@ fun AssignmentScreen(
             MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.25f)
         )
     )
+
+    val isInputValid =
+        mark1.isNotBlank() &&
+                mark2.isNotBlank() &&
+                mark3.isNotBlank()
 
     Column(
         modifier = Modifier
@@ -114,6 +121,7 @@ fun AssignmentScreen(
 
                         result = "Average: %.2f\nGrade: $grade".format(avg)
                     },
+                    enabled = isInputValid,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(52.dp),

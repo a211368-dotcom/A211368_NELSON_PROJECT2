@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project1.screen
+package com.example.a211368_nelson_project2.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,12 +8,14 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.a211368_nelson_project1.viewmodel.LabViewModel
+import androidx.compose.runtime.getValue
+import com.example.a211368_nelson_project2.viewmodel.LabViewModel
 
 @Composable
 fun SummaryScreen(
@@ -32,7 +34,7 @@ fun SummaryScreen(
 
     val note = viewModel.userData.note
     val updated = viewModel.lastUpdated
-    val history = viewModel.noteHistory.reversed()
+    val journalEntries by viewModel.journalEntries.collectAsState()
 
     Column(
         modifier = Modifier
@@ -147,18 +149,14 @@ fun SummaryScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                if (history.isEmpty()) {
-
+                if (journalEntries.isEmpty()) {
                     Text(
                         "No history yet",
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-
                 } else {
-
                     Column {
-                        history.forEachIndexed { index, item ->
-
+                        journalEntries.forEachIndexed { index, entry ->
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -168,38 +166,42 @@ fun SummaryScreen(
                                     containerColor = MaterialTheme.colorScheme.surface
                                 )
                             ) {
-
-                                Text(
-                                    text = "${index + 1}. $item",
-                                    modifier = Modifier.padding(12.dp),
-                                    style = MaterialTheme.typography.bodyMedium
-                                )
+                                Column(modifier = Modifier.padding(12.dp)) {
+                                    Text(
+                                        text = "${index + 1}. ${entry.experimentName}",
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Text(text = entry.note)
+                                    Text(
+                                        text = entry.date,
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
+                Spacer(modifier = Modifier.height(14.dp))
 
-        Spacer(modifier = Modifier.height(14.dp))
+                // TIP CARD
+                Card(
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f)
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
 
-        // TIP CARD
-        Card(
-            shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.6f)
-            )
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
+                        Text("Tip", fontWeight = FontWeight.Bold)
 
-                Text("Tip", fontWeight = FontWeight.Bold)
+                        Spacer(modifier = Modifier.height(6.dp))
 
-                Spacer(modifier = Modifier.height(6.dp))
-
-                Text(
-                    "Good reflection = explain what you learned, not just what happened.",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                        Text(
+                            "Good reflection = explain what you learned, not just what happened.",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
             }
         }
     }

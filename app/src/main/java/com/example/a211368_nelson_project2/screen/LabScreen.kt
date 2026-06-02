@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project1.screen
+package com.example.a211368_nelson_project2.screen
 
 enum class LabScreen {
     Login,

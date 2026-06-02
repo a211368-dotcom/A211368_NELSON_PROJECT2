@@ -1,50 +1,34 @@
-package com.example.a211368_nelson_project1
+package com.example.a211368_nelson_project2
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.a211368_nelson_project1.screen.DetailScreen
-import com.example.a211368_nelson_project1.screen.ExperimentOverview
-import com.example.a211368_nelson_project1.screen.HomeScreen
-import com.example.a211368_nelson_project1.screen.LabScreen
-import com.example.a211368_nelson_project1.screen.ProfileScreen
-import com.example.a211368_nelson_project1.screen.SummaryScreen
-import com.example.a211368_nelson_project1.viewmodel.LabViewModel
-import com.example.a211368_nelson_project1.data.UserData
-import com.example.a211368_nelson_project1.screen.AssignmentScreen
-import com.example.a211368_nelson_project1.ui.theme.A211368_NELSON_PROJECT1Theme
-import com.example.a211368_nelson_project1.screen.ClassScreen
-import com.example.a211368_nelson_project1.screen.ClassDetail
-import com.example.a211368_nelson_project1.screen.LoginScreen
+import com.example.a211368_nelson_project2.screen.DetailScreen
+import com.example.a211368_nelson_project2.screen.ExperimentOverview
+import com.example.a211368_nelson_project2.screen.HomeScreen
+import com.example.a211368_nelson_project2.screen.LabScreen
+import com.example.a211368_nelson_project2.screen.ProfileScreen
+import com.example.a211368_nelson_project2.screen.SummaryScreen
+import com.example.a211368_nelson_project2.viewmodel.LabViewModel
+import com.example.a211368_nelson_project2.screen.AssignmentScreen
+import com.example.a211368_nelson_project2.ui.theme.A211368_NELSON_PROJECT1Theme
+import com.example.a211368_nelson_project2.screen.ClassScreen
+import com.example.a211368_nelson_project2.screen.ClassDetail
+import com.example.a211368_nelson_project2.screen.LoginScreen
+import com.example.a211368_nelson_project2.viewmodel.AppViewModelProvider
 
 class MainActivity : ComponentActivity() {
 
@@ -59,7 +43,9 @@ class MainActivity : ComponentActivity() {
             A211368_NELSON_PROJECT1Theme(darkTheme = darkTheme) {
 
                 val navController = rememberNavController()
-                val viewModel: LabViewModel = viewModel()
+                val viewModel: LabViewModel = viewModel(
+                    factory = AppViewModelProvider.Factory
+                )
 
                 Scaffold(
                     bottomBar = { BottomNavigationBar(navController) }
