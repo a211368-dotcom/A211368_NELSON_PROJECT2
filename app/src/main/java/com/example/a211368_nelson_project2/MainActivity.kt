@@ -110,7 +110,7 @@ class MainActivity : ComponentActivity() {
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
                                 onNext = {
-                                    navController.navigate("summary")
+                                    navController.navigate(LabScreen.Summary.name)
                                 }
                             )
                         }

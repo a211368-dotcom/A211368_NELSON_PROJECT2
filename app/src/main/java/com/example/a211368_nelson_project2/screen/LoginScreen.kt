@@ -16,14 +16,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.a211368_nelson_project2.viewmodel.LabViewModel
 import com.example.a211368_nelson_project2.R
 
 @Composable
 fun LoginScreen(
     onLogin: (String) -> Unit,
-    viewModel: LabViewModel = viewModel()
 ) {
 
     var username by rememberSaveable { mutableStateOf("") }
@@ -110,7 +107,6 @@ fun LoginScreen(
                 Button(
                     onClick = {
                         if (username.isNotBlank() && password.isNotBlank()) {
-                            viewModel.login(username)
                             onLogin(username)
                         }
                     },
