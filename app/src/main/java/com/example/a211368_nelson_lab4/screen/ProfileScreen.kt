@@ -1,5 +1,6 @@
 package com.example.a211368_nelson_lab4.screen
 
+import android.R.attr.label
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -32,18 +33,17 @@ fun ProfileScreen(
     onBack: () -> Unit
 ) {
 
-    // ✨ editable state
+    // editable field
     var name by remember { mutableStateOf(userName) }
-    var email by remember { mutableStateOf("student@ukm.edu.my") }
-    var studentId by remember { mutableStateOf("A211368") }
-    var course by remember { mutableStateOf("Software Engineering") }
+    var email by remember { mutableStateOf("") }
+    var age by remember { mutableStateOf("") }
+    var className by remember { mutableStateOf("") }
 
-    val gradient = Brush.verticalGradient(
-        listOf(
-            MaterialTheme.colorScheme.primaryContainer,
-            MaterialTheme.colorScheme.secondaryContainer
-        )
-    )
+    // saved data
+    var savedName by remember { mutableStateOf(userName) }
+    var savedEmail by remember { mutableStateOf("") }
+    var savedAge by remember { mutableStateOf("") }
+    var savedClass by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -52,54 +52,9 @@ fun ProfileScreen(
             .padding(20.dp)
     ) {
 
-        // HEADER
-        Card(
-            shape = RoundedCornerShape(28.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Box(
-                modifier = Modifier
-                    .background(gradient)
-                    .padding(20.dp)
-            ) {
-
-                Column {
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-
-                        IconButton(onClick = onBack) {
-                            Icon(Icons.Default.Person, contentDescription = null)
-                        }
-
-                        IconButton(onClick = onToggleTheme) {
-                            Icon(
-                                imageVector = if (isDarkTheme)
-                                    Icons.Default.LightMode
-                                else Icons.Default.DarkMode,
-                                contentDescription = null
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Text(
-                        text = "Profile",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-
-                    Text("Manage your personal information")
-                }
-            }
-        }
-
         Spacer(modifier = Modifier.height(20.dp))
 
-        // PROFILE ICON
+        // profile card
         Card(
             shape = RoundedCornerShape(24.dp),
             colors = CardDefaults.cardColors(
@@ -108,7 +63,9 @@ fun ProfileScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(
-                modifier = Modifier.padding(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
@@ -121,18 +78,18 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = name,
+                    text = savedName,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
 
-                Text(course)
+                Text(savedClass)
             }
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // ✏️ EDIT SECTION
+        // title
         Text(
             text = "Edit Information",
             style = MaterialTheme.typography.titleMedium,
@@ -141,7 +98,7 @@ fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // NAME
+        // name
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
@@ -151,7 +108,7 @@ fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // EMAIL
+        // email
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -161,30 +118,41 @@ fun ProfileScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // STUDENT ID
+        // age
         OutlinedTextField(
-            value = studentId,
-            onValueChange = { studentId = it },
-            label = { Text("Student ID") },
+            value = age,
+            onValueChange = { age = it },
+            label = { Text("Age") },
             modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // COURSE
+        // class
         OutlinedTextField(
-            value = course,
-            onValueChange = { course = it },
-            label = { Text("Course") },
+            value = className,
+            onValueChange = { className = it },
+            label = { Text("Class") },
             modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // SAVE BUTTON
+        // save button
         Button(
             onClick = {
-                // here you can connect to ViewModel later
+
+                // 💾 SAVE DATA
+                savedName = name
+                savedEmail = email
+                savedAge = age
+                savedClass = className
+
+                name = savedName
+                email = savedEmail
+                age = savedAge
+                className = savedClass
+
             },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(14.dp)
@@ -194,3 +162,16 @@ fun ProfileScreen(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun ProfileScreenPreview() {
+    A211368_NELSON_LAB4Theme {
+
+        ProfileScreen(
+            userName = "Nur Hasmiza",
+            isDarkTheme = false,
+            onToggleTheme = {},
+            onBack = {}
+        )
+    }
+}

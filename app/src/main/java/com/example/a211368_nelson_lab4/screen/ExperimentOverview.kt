@@ -54,7 +54,7 @@ fun ExperimentOverview(
 
     var note by remember { mutableStateOf("") }
 
-    // ✅ Snackbar
+    //snackbar (to show alert message)
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
@@ -66,7 +66,7 @@ fun ExperimentOverview(
         )
     )
 
-    // ✅ Scaffold untuk Snackbar
+    // scaffold untuk snackbar
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { padding ->
@@ -79,7 +79,7 @@ fun ExperimentOverview(
                 .padding(padding)
         ) {
 
-            // 🔙 HEADER
+            // header
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = 10.dp, bottom = 20.dp)
@@ -114,7 +114,7 @@ fun ExperimentOverview(
                 }
             }
 
-            // 🌟 MAIN CARD
+            // main card
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -152,12 +152,12 @@ fun ExperimentOverview(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // ✏️ NOTE INPUT
+                    // note input
                     OutlinedTextField(
                         value = note,
                         onValueChange = {
                             note = it
-                            viewModel.updateNote(note) // ✅ auto save
+                            viewModel.updateNote(note)
                         },
                         placeholder = { Text("Enter your experiment notes...") },
                         modifier = Modifier.fillMaxWidth(),
@@ -167,7 +167,7 @@ fun ExperimentOverview(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // 🚀 BUTTON
+                    // button
                     Button(
                         onClick = {
                             if (note.isNotBlank()) {
@@ -176,7 +176,7 @@ fun ExperimentOverview(
 
                                 scope.launch {
                                     snackbarHostState.showSnackbar(
-                                        "Notes submitted successfully 🎉"
+                                        "Notes submitted successfully "
                                     )
                                 }
 
@@ -185,7 +185,7 @@ fun ExperimentOverview(
                             } else {
                                 scope.launch {
                                     snackbarHostState.showSnackbar(
-                                        "Please enter your notes first ⚠️"
+                                        "Please enter your notes first"
                                     )
                                 }
                             }
@@ -203,7 +203,7 @@ fun ExperimentOverview(
                 }
             }
 
-            // 📦 INFO CARD
+            // info card
             Card(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(20.dp),

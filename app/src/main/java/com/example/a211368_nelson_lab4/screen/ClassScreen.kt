@@ -28,6 +28,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Eco
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.FlashOn
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Science
 import androidx.compose.material3.Button
@@ -71,7 +72,7 @@ fun ClassScreen(
 ) {
     // Data kelas dengan ikon yang berbeza untuk setiap subjek
     val classes = listOf(
-        ClassItem("Physics 4 Zamrud", "Teacher Aisyah, 9 a.m., Tuesday.", Icons.Default.Science),
+        ClassItem("Physics 4 Zamrud", "Teacher Aisyah, 9 a.m., Tuesday.", Icons.Default.FlashOn),
         ClassItem("Biology 5 Utarid", "Sir Zakir, 2 p.m., Thursday.", Icons.Default.Eco),
         ClassItem("Chemistry 4 Zamrud", "Madam Mariam, 10 a.m., Friday.", Icons.Default.Science)
     )
@@ -81,7 +82,7 @@ fun ClassScreen(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface) // Latar belakang bersih
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 20.dp)
     ) {
         // 🔙 HEADER
@@ -92,7 +93,7 @@ fun ClassScreen(
             ) {
                 IconButton(
                     onClick = onBack,
-                    modifier = Modifier.background(Color.White, CircleShape) // Efek neumorphic ringkas
+                    modifier = Modifier.background(Color.White, CircleShape)
                 ) {
                     Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                 }
@@ -107,7 +108,7 @@ fun ClassScreen(
             }
         }
 
-        // 🧾 JOIN CLASS CARD
+        // join class card
         item {
             Card(
                 modifier = Modifier
@@ -157,7 +158,7 @@ fun ClassScreen(
             }
         }
 
-        // 📚 SECTION TITLE
+        // section title
         item {
             Text(
                 text = "Your Science Class",
@@ -169,9 +170,8 @@ fun ClassScreen(
             )
         }
 
-        // 📦 CLASS LIST
+        // class list
         itemsIndexed(classes) { index, item ->
-            // Warna pastel yang berbeza untuk setiap kad
             val cardColor = when (index % 3) {
                 0 -> Color(0xFFE8DEF8) // Lavender
                 1 -> Color(0xFFF2D5D5) // Peach/Pink lembut
@@ -197,7 +197,7 @@ fun EnhancedClassCard(title: String, description: String, icon: ImageVector, bgC
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                // Icon subjek ganti Bullet point
+
                 Icon(
                     imageVector = icon,
                     contentDescription = null,

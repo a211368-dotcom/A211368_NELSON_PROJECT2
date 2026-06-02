@@ -62,7 +62,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.a211368_nelson_lab4.BottomNavigationBar
-import com.example.a211368_nelson_lab4.CategorySection
 import com.example.a211368_nelson_lab4.ui.theme.A211368_NELSON_LAB4Theme
 import com.example.a211368_nelson_lab4.viewmodel.LabViewModel
 
@@ -103,7 +102,7 @@ fun HomeScreen(
             .padding(horizontal = 20.dp)
     ) {
 
-        // 🌈 HEADER (same vibe as ClassScreen)
+        // header lab quest
         item {
 
             val gradient = Brush.verticalGradient(
@@ -129,6 +128,7 @@ fun HomeScreen(
 
                     Column {
 
+                        //icon theme
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End
@@ -160,7 +160,7 @@ fun HomeScreen(
             }
         }
 
-        // ✏️ NAME INPUT CARD
+        // name input text field
         item {
             AnimatedVisibility(visible = !isSubmitted) {
 
@@ -215,7 +215,7 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(20.dp))
         }
 
-        // 📚 CATEGORY HEADER
+        // category header
         item {
             Text(
                 text = "Experiment Categories",
@@ -226,7 +226,7 @@ fun HomeScreen(
             )
         }
 
-        // 🧪 CHEMISTRY
+        // chemistry section
         item {
             SimpleCategoryCard(
                 title = "Chemistry",
@@ -238,7 +238,7 @@ fun HomeScreen(
 
         item { Spacer(modifier = Modifier.height(12.dp)) }
 
-        // ⚡ PHYSICS
+        // physics
         item {
             SimpleCategoryCard(
                 title = "Physics",
@@ -250,7 +250,7 @@ fun HomeScreen(
 
         item { Spacer(modifier = Modifier.height(12.dp)) }
 
-        // 🌱 BIOLOGY
+        // biology
         item {
             SimpleCategoryCard(
                 title = "Biology",

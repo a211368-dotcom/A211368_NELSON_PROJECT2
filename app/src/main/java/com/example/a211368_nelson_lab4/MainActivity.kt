@@ -41,6 +41,7 @@ import com.example.a211368_nelson_lab4.screen.LabScreen
 import com.example.a211368_nelson_lab4.screen.ProfileScreen
 import com.example.a211368_nelson_lab4.viewmodel.LabViewModel
 import com.example.a211368_nelson_lab4.screen.ExperimentOverview
+import com.example.a211368_nelson_lab4.screen.SummaryScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -67,7 +68,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(padding)
                     ) {
 
-                        // 🌸 HOME
+                        // home screen
                         composable(LabScreen.Home.name) {
                             HomeScreen(
                                 viewModel = viewModel,
@@ -82,7 +83,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        // 📄 DETAIL
+                        // detail screen
                         composable(LabScreen.Detail.name) {
                             DetailScreen(
                                 viewModel = viewModel,
@@ -93,14 +94,25 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+                        //experiment notes screen
                         composable(LabScreen.ExperimentOverview.name) {
                             ExperimentOverview(
                                 viewModel = viewModel,
                                 onBack = { navController.popBackStack() },
+                                onNext = {
+                                    navController.navigate("summary")
+                                }
                             )
                         }
 
-                        // 👤 PROFILE (FIXED)
+                        composable("summary") {
+                            SummaryScreen(
+                                viewModel = viewModel,
+                                onBack = { navController.popBackStack() }
+                            )
+                        }
+
+                        //profile screen
                         composable(LabScreen.Profile.name) {
                             ProfileScreen(
                                 userName = viewModel.userData.name,
@@ -110,7 +122,7 @@ class MainActivity : ComponentActivity() {
                             )
                             }
 
-                        // 📘 CLASS
+                        // class screen
                         composable(LabScreen.Class.name) {
                             ClassScreen(
                                 onBack = { navController.popBackStack() }
@@ -125,117 +137,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun CategorySection(
-    title: String,
-    items: Map<String, String>,
-    icon: ImageVector,
-    onExperimentClick: (String) -> Unit) {
-
-    Column {
-
- Row( //title with icon
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(vertical = 10.dp)
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.primary
-            )
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Text(
-                text = title,
-                style = MaterialTheme.typography.displayMedium,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
-
-        items.forEach { (item, description) ->
-            var expanded by remember { mutableStateOf(false) }
-
-            Card(  //experiment in each category
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 6.dp)
-                    .clickable {
-                        onExperimentClick(item)
-                    }
-                    .shadow(4.dp, RoundedCornerShape(20.dp)),
-                shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant
-                ),
-                border = BorderStroke(
-                    1.dp,
-                    MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
-                )
-            ) {
-
-                Column {
-
-                    // top strip
-    Box(
-      modifier = Modifier
-     .fillMaxWidth()
-     .height(4.dp)
-     .background(MaterialTheme.colorScheme.primary)
-                    )
-
-        Column(modifier = Modifier.padding(16.dp)) {
-
-        Row(verticalAlignment = Alignment.CenterVertically) {
-
-         Spacer(modifier = Modifier.width(10.dp))
-
-         Text(
-        text = item,
-        style = MaterialTheme.typography.titleMedium,
-        color = MaterialTheme.colorScheme.onSurface,
-        modifier = Modifier.weight(1f)
-                            )
-
-         IconButton(onClick = { expanded = !expanded }) {
-           Icon(
-            imageVector = if (expanded)
-            Icons.Default.ExpandLess
-              else
-            Icons.Default.ExpandMore,
-            contentDescription = null
-     )
-    }
- }
-
- AnimatedVisibility(
-  visible = expanded,
-   enter = fadeIn() + expandVertically(),
-   exit = fadeOut() + shrinkVertically()
-   ) {
-
-     Column {
-     Spacer(modifier = Modifier.height(10.dp))
-
-      Divider(
-      color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
-   )
-
-    Spacer(modifier = Modifier.height(10.dp))
-
-   Text(
-   text = description,
-   style = MaterialTheme.typography.bodyLarge,
-   color = MaterialTheme.colorScheme.onSurfaceVariant
-)
-}
-}
-}
-}
-}
-}
-}
-}
 
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
@@ -279,3 +180,4 @@ fun BottomNavigationBar(navController: NavHostController) {
         )
     }
 }
+

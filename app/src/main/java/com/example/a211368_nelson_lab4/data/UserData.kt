@@ -3,7 +3,7 @@ package com.example.a211368_nelson_lab4.data
 data class UserData(
     val name: String = "",
     val experiment: String = "",
-    val note: String = ""
+    val note: String = "",
 )
 
 data class Experiment(

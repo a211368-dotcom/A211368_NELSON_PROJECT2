@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.a211368_nelson_lab4.ui.theme.A211368_NELSON_LAB4Theme
 import com.example.a211368_nelson_lab4.viewmodel.LabViewModel
 
-// 🌸 DATA MODEL
+// data model
 data class ExperimentDetail(
     val title: String,
     val description: String,
@@ -29,7 +29,7 @@ data class ExperimentDetail(
     val steps: String
 )
 
-// 🌸 DATA SOURCE
+// data source
 fun getExperimentDetail(name: String): ExperimentDetail {
     return when (name) {
 
@@ -86,7 +86,6 @@ fun DetailScreen(
     val experimentName = viewModel.userData.experiment
     val detail = getExperimentDetail(experimentName)
 
-    var note by remember { mutableStateOf("") }
 
     val gradient = Brush.verticalGradient(
         listOf(
@@ -103,7 +102,7 @@ fun DetailScreen(
             .padding(20.dp)
     ) {
 
-        // 🔙 HEADER
+        // header
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 10.dp, bottom = 20.dp)
@@ -141,7 +140,7 @@ fun DetailScreen(
             }
         }
 
-        // 🌟 MAIN CARD
+        // main card
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -176,7 +175,7 @@ fun DetailScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // 📘 OBJECTIVE
+                // objective
                 Text("Objective", fontWeight = FontWeight.Bold)
                 Text(
                     detail.objective,
@@ -185,7 +184,7 @@ fun DetailScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // 🧪 MATERIALS
+                // materials
                 Text("Materials", fontWeight = FontWeight.Bold)
                 Text(
                     detail.materials,
@@ -194,7 +193,7 @@ fun DetailScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // 🔬 STEPS
+                // steps
                 Text("Steps", fontWeight = FontWeight.Bold)
                 Text(
                     detail.steps,
@@ -217,7 +216,6 @@ fun DetailScreen(
             }
         }
 
-        // 💡 TIPS
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
