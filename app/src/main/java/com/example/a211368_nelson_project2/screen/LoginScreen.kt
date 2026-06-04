@@ -20,11 +20,17 @@ import com.example.a211368_nelson_project2.R
 
 @Composable
 fun LoginScreen(
-    onLogin: (String) -> Unit,
+    onLogin: (String, String) -> Unit,
+    onRegister: (String, String, String, String, String) -> Unit,
+    message: String = ""
 ) {
 
     var username by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var age by rememberSaveable { mutableStateOf("") }
+    var className by rememberSaveable { mutableStateOf("") }
+    var isRegisterMode by rememberSaveable { mutableStateOf(false) }
 
     val pastelGradient = Brush.verticalGradient(
         colors = listOf(
@@ -101,28 +107,110 @@ fun LoginScreen(
                     visualTransformation = PasswordVisualTransformation()
                 )
 
+                if (message.isNotBlank()) {
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = message,
+                        color = Color(0xFF7E57C2),
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
+                if (isRegisterMode) {
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedTextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        label = { Text("Email") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedTextField(
+                        value = age,
+                        onValueChange = { age = it },
+                        label = { Text("Age") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    OutlinedTextField(
+                        value = className,
+                        onValueChange = { className = it },
+                        label = { Text("Class") },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp)
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(20.dp))
 
                 // LOGIN BUTTON
-                Button(
-                    onClick = {
-                        if (username.isNotBlank() && password.isNotBlank()) {
-                            onLogin(username)
-                        }
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF7E57C2) // purple pastel
-                    )
-                ) {
-                    Text(
-                        "Login",
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
+                if (!isRegisterMode) {
+                    Button(
+                        onClick = {
+                            onLogin(username, password)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF7E57C2)
+                        )
+                    ) {
+                        Text("Login", fontWeight = FontWeight.Bold, color = Color.White)
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    OutlinedButton(
+                        onClick = {
+                            isRegisterMode = true
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Text("Register")
+                    }
+
+                } else {
+                    Button(
+                        onClick = {
+                            onRegister(username, password, email, age, className)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF7E57C2)
+                        )
+                    ) {
+                        Text("Create Account", fontWeight = FontWeight.Bold, color = Color.White)
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    OutlinedButton(
+                        onClick = {
+                            isRegisterMode = false
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Text("Back to Login")
+                    }
                 }
             }
         }

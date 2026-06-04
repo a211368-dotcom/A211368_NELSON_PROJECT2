@@ -13,7 +13,8 @@ object AppViewModelProvider {
 
         initializer {
             LabViewModel(
-                labApplication().container.journalRepository
+                labApplication().container.journalRepository,
+                labApplication().container.userRepository
             )
         }
     }

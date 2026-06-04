@@ -16,18 +16,19 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.a211368_nelson_project2.screen.DetailScreen
-import com.example.a211368_nelson_project2.screen.ExperimentOverview
+import com.example.a211368_nelson_project2.screen.Experiment.DetailScreen
+import com.example.a211368_nelson_project2.screen.Experiment.ExperimentOverview
 import com.example.a211368_nelson_project2.screen.HomeScreen
 import com.example.a211368_nelson_project2.screen.LabScreen
 import com.example.a211368_nelson_project2.screen.ProfileScreen
-import com.example.a211368_nelson_project2.screen.SummaryScreen
+import com.example.a211368_nelson_project2.screen.Class.SummaryScreen
 import com.example.a211368_nelson_project2.viewmodel.LabViewModel
-import com.example.a211368_nelson_project2.screen.AssignmentScreen
+import com.example.a211368_nelson_project2.screen.Experiment.AssignmentScreen
 import com.example.a211368_nelson_project2.ui.theme.A211368_NELSON_PROJECT1Theme
-import com.example.a211368_nelson_project2.screen.ClassScreen
-import com.example.a211368_nelson_project2.screen.ClassDetail
+import com.example.a211368_nelson_project2.screen.Class.ClassScreen
+import com.example.a211368_nelson_project2.screen.Class.ClassDetail
 import com.example.a211368_nelson_project2.screen.LoginScreen
+import com.example.a211368_nelson_project2.screen.ScienceFactScreen
 import com.example.a211368_nelson_project2.viewmodel.AppViewModelProvider
 
 class MainActivity : ComponentActivity() {
@@ -67,12 +68,35 @@ class MainActivity : ComponentActivity() {
 
                         composable(LabScreen.Login.name) {
                             LoginScreen(
-                                onLogin = { name ->
+                                message = viewModel.loginMessage,
 
-                                    viewModel.setName(name)
+                                onLogin = { username, password ->
 
-                                    navController.navigate(LabScreen.Home.name) {
-                                        popUpTo(LabScreen.Login.name) { inclusive = true }
+                                    viewModel.login(username, password) { success ->
+
+                                        if (success) {
+                                            navController.navigate(LabScreen.Home.name) {
+                                                popUpTo(LabScreen.Login.name) { inclusive = true }
+                                            }
+                                        }
+                                    }
+                                },
+
+                                onRegister = { username, password, email, age, className ->
+
+                                    viewModel.registerUser(
+                                        username = username,
+                                        password = password,
+                                        email = email,
+                                        age = age,
+                                        className = className
+                                    ) { success ->
+
+                                        if (success) {
+                                            navController.navigate(LabScreen.Home.name) {
+                                                popUpTo(LabScreen.Login.name) { inclusive = true }
+                                            }
+                                        }
                                     }
                                 }
                             )
@@ -188,6 +212,11 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+                        //science fact
+                        composable(LabScreen.ScienceFact.name) {
+                            ScienceFactScreen()
+                        }
+
 
                     }
                 }
@@ -228,6 +257,24 @@ fun BottomNavigationBar(navController: NavHostController) {
         )
 
         NavigationBarItem(
+            selected = currentRoute == LabScreen.ScienceFact.name,
+            onClick = {
+                navController.navigate(LabScreen.ScienceFact.name) {
+                    launchSingleTop = true
+                }
+            },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Lightbulb,
+                    contentDescription = "Science Facts"
+                )
+            },
+            label = {
+                Text("Facts")
+            }
+        )
+
+        NavigationBarItem(
             selected = currentRoute == LabScreen.Profile.name,
             onClick = {
                 navController.navigate(LabScreen.Profile.name) {
@@ -237,5 +284,6 @@ fun BottomNavigationBar(navController: NavHostController) {
             icon = { Icon(Icons.Default.AccountCircle, null) },
             label = { Text("Profile") }
         )
+
     }
 }

@@ -62,5 +62,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     ksp(libs.androidx.room.compiler)
     }

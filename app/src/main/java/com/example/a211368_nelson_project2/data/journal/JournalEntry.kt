@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project2.data
+package com.example.a211368_nelson_project2.data.journal
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

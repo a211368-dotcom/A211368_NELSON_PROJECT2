@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project2.screen
+package com.example.a211368_nelson_project2.screen.Class
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.a211368_nelson_project2.screen.LabScreen
 
 @Composable
 fun ClassDetail(

@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_project2.screen
+package com.example.a211368_nelson_project2.screen.Experiment
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

@@ -9,5 +9,6 @@ enum class LabScreen {
     Class,
     ClassDetail,
     Summary,
-    Assignment
+    Assignment,
+    ScienceFact
 }

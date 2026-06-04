@@ -1,5 +1,6 @@
-package com.example.a211368_nelson_project2.screen
+package com.example.a211368_nelson_project2.screen.Experiment
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -33,7 +35,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,7 +44,6 @@ import androidx.compose.ui.unit.dp
 import com.example.a211368_nelson_project2.viewmodel.LabViewModel
 import kotlinx.coroutines.launch
 
-
 @Composable
 fun ExperimentOverview(
     modifier: Modifier = Modifier,
@@ -51,46 +51,44 @@ fun ExperimentOverview(
     onBack: () -> Unit = {},
     onNext: () -> Unit = {}
 ) {
-
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-    val pastelBg = Brush.verticalGradient(
+    val bgGradient = Brush.verticalGradient(
         colors = listOf(
-            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
-            MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.35f),
-            MaterialTheme.colorScheme.tertiaryContainer.copy(alpha = 0.25f),
-            MaterialTheme.colorScheme.surface
+            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.28f),
+            MaterialTheme.colorScheme.surfaceContainerLowest,
+            MaterialTheme.colorScheme.surfaceContainerLowest
         )
     )
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest
     ) { padding ->
 
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .background(pastelBg)
+                .background(bgGradient)
                 .padding(20.dp)
                 .padding(padding)
         ) {
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = 10.dp, bottom = 22.dp)
+                modifier = Modifier.padding(top = 8.dp, bottom = 18.dp)
             ) {
-
                 IconButton(
                     onClick = onBack,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(14.dp))
-                        .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.9f))
+                    colors = IconButtonDefaults.iconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        contentColor = MaterialTheme.colorScheme.primary
+                    )
                 ) {
                     Icon(
                         Icons.Default.ArrowBack,
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primary
+                        contentDescription = null
                     )
                 }
 
@@ -99,13 +97,15 @@ fun ExperimentOverview(
                 Column {
                     Text(
                         text = "Experiment Journal",
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.ExtraBold
+                        ),
+                        color = MaterialTheme.colorScheme.onBackground
                     )
 
                     Text(
                         text = "Write your notes & reflect",
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -113,41 +113,75 @@ fun ExperimentOverview(
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(26.dp),
+                shape = RoundedCornerShape(30.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surface
+                    containerColor = MaterialTheme.colorScheme.primary
                 ),
-                elevation = CardDefaults.cardElevation(8.dp)
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
             ) {
-
                 Column(modifier = Modifier.padding(22.dp)) {
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-
                         Box(
                             modifier = Modifier
-                                .size(42.dp)
+                                .size(48.dp)
                                 .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.primaryContainer),
+                                .background(MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.16f)),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 Icons.Default.School,
                                 contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = MaterialTheme.colorScheme.onPrimary
                             )
                         }
 
-                        Spacer(modifier = Modifier.width(12.dp))
+                        Spacer(modifier = Modifier.width(14.dp))
 
-                        Text(
-                            text = viewModel.userData.experiment,
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.Bold
-                        )
+                        Column {
+                            Text(
+                                text = viewModel.userData.experiment,
+                                style = MaterialTheme.typography.titleLarge.copy(
+                                    fontWeight = FontWeight.ExtraBold
+                                ),
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+
+                            Text(
+                                text = "Observation & conclusion",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f)
+                            )
+                        }
                     }
+                }
+            }
 
-                    Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(28.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 3.dp),
+                border = BorderStroke(
+                    1.dp,
+                    MaterialTheme.colorScheme.outlineVariant
+                )
+            ) {
+                Column(modifier = Modifier.padding(18.dp)) {
+
+                    Text(
+                        text = "Experiment Notes",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+
+                    Spacer(modifier = Modifier.height(6.dp))
 
                     Text(
                         text = "Write your observation and conclusion in your own words.",
@@ -165,12 +199,12 @@ fun ExperimentOverview(
                         placeholder = { Text("Type your experiment notes here...") },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(18.dp),
-                        minLines = 4,
+                        minLines = 5,
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
                             unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
-                            focusedContainerColor = MaterialTheme.colorScheme.surface,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface
+                            focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow
                         )
                     )
 
@@ -183,30 +217,31 @@ fun ExperimentOverview(
                                 viewModel.saveNoteToRoom()
 
                                 scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        "Notes Saved! "
-                                    )
+                                    snackbarHostState.showSnackbar("Notes Saved!")
                                 }
 
                                 onNext()
-
                             } else {
                                 scope.launch {
-                                    snackbarHostState.showSnackbar(
-                                        "Please write something first"
-                                    )
+                                    snackbarHostState.showSnackbar("Please write something first")
                                 }
                             }
                         },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(52.dp),
-                        shape = RoundedCornerShape(18.dp),
+                        shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
+                            containerColor = MaterialTheme.colorScheme.secondary,
+                            contentColor = MaterialTheme.colorScheme.onSecondary
                         )
                     ) {
-                        Text("Submit & Continue", fontWeight = FontWeight.Bold)
+                        Text(
+                            text = "Submit & Continue",
+                            style = MaterialTheme.typography.labelLarge.copy(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
                     }
                 }
             }
@@ -215,27 +250,32 @@ fun ExperimentOverview(
 
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(22.dp),
+                shape = RoundedCornerShape(24.dp),
                 colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                ),
+                border = BorderStroke(
+                    1.dp,
+                    MaterialTheme.colorScheme.outlineVariant
                 )
             ) {
-
                 Column(modifier = Modifier.padding(16.dp)) {
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
-
                         Icon(
                             Icons.Default.Description,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.primary
+                            tint = MaterialTheme.colorScheme.onTertiaryContainer
                         )
 
                         Spacer(modifier = Modifier.width(10.dp))
 
                         Text(
                             text = "Tips",
-                            fontWeight = FontWeight.Bold
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.onTertiaryContainer
                         )
                     }
 
@@ -243,7 +283,8 @@ fun ExperimentOverview(
 
                     Text(
                         text = "• Be clear and structured\n• Include observations\n• Write conclusion based on result",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.85f)
                     )
                 }
             }

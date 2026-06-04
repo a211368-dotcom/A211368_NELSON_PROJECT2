@@ -4,15 +4,20 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.a211368_nelson_project2.data.journal.JournalDao
+import com.example.a211368_nelson_project2.data.journal.JournalEntry
+import com.example.a211368_nelson_project2.data.login.UserDao
+import com.example.a211368_nelson_project2.data.login.UserEntity
 
 @Database(
-    entities = [JournalEntry::class],
-    version = 1,
+    entities = [JournalEntry::class, UserEntity::class],
+    version = 2,
     exportSchema = false
 )
 abstract class LabDatabase : RoomDatabase() {
 
     abstract fun journalDao(): JournalDao
+    abstract fun userDao(): UserDao
 
     companion object {
 
@@ -27,7 +32,9 @@ abstract class LabDatabase : RoomDatabase() {
                     context.applicationContext,
                     LabDatabase::class.java,
                     "lab_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
 
                 INSTANCE = instance
 
