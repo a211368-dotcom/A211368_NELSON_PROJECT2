@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.a211368_nelson_project2"
+    namespace = "com.example.a211368_nelson_lab4"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.a211368_nelson_project2"
+        applicationId = "com.example.a211368_nelson_lab4"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

@@ -33,15 +33,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.a211368_nelson_lab4.data.UserData
-import com.example.a211368_nelson_lab4.ui.theme.A211368_NELSON_LAB4Theme
 import com.example.a211368_nelson_lab4.screen.ClassScreen
 import com.example.a211368_nelson_lab4.screen.DetailScreen
 import com.example.a211368_nelson_lab4.screen.HomeScreen
-import com.example.a211368_nelson_lab4.screen.LabScreen
 import com.example.a211368_nelson_lab4.screen.ProfileScreen
-import com.example.a211368_nelson_lab4.viewmodel.LabViewModel
 import com.example.a211368_nelson_lab4.screen.ExperimentOverview
 import com.example.a211368_nelson_lab4.screen.SummaryScreen
+import com.example.a211368_nelson_project2.screen.LabScreen
+import com.example.a211368_nelson_project2.viewmodel.LabViewModel
 
 class MainActivity : ComponentActivity() {
 
