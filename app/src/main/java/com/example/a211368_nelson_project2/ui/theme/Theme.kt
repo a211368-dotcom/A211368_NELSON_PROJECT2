@@ -1,4 +1,4 @@
-package com.example.a211368_nelson_lab4.ui.theme
+package com.example.a211368_nelson_project2.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -13,8 +13,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+
 @Composable
-fun A211368_NELSON_LAB4Theme(
+fun A211368_NELSON_PROJECT1Theme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true, // ❗ IMPORTANT (use your custom colors)
     content: @Composable () -> Unit
@@ -84,6 +85,24 @@ private val LightColors = lightColorScheme(
     onSurfaceVariant = onSurfaceVariantLight,
 
     outline = outlineLight
+)
+
+private val PastelLightColorScheme = lightColorScheme(
+    primary = Color(0xFF9FA8FF),          // pastel purple
+    secondary = Color(0xFF9AD0FF),        // pastel blue
+    tertiary = Color(0xFFFFC1E3),         // pastel pink
+
+    background = Color(0xFFF8F9FF),       // soft white-blue
+    surface = Color(0xFFFFFFFF),
+
+    primaryContainer = Color(0xFFE6E6FF),
+    secondaryContainer = Color(0xFFE0F2FF),
+    tertiaryContainer = Color(0xFFFFEEF6),
+
+    onPrimary = Color.White,
+    onSecondary = Color.Black,
+    onBackground = Color(0xFF1C1B1F),
+    onSurface = Color(0xFF1C1B1F)
 )
 
 //////////////////////////////////////////////////
